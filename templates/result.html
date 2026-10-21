@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="glass-card text-center overflow-hidden position-relative mb-4">
+
+            {% if res.loan_status == 'Approved' %}
+                <div class="mb-4 text-success display-1"><i class="fa-solid fa-shield-check"></i></div>
+                <h2 class="fw-bold text-white">Application Approved</h2>
+                <p class="text-secondary">The profile matches the AI model's approval parameters.</p>
+            {% else %}
+                <div class="mb-4 text-danger display-1"><i class="fa-solid fa-shield-xmark"></i></div>
+                <h2 class="fw-bold text-white">Application Rejected</h2>
+                <p class="text-secondary">The profile does not meet the AI model's approval thresholds.</p>
+            {% endif %}
+
+            <hr class="border-secondary opacity-10 my-4">
+
+            <div class="row g-3 mb-2 text-start">
+                <div class="col-6">
+                    <span class="text-secondary small">Prediction Confidence:</span>
+                    <h4 class="text-white fw-bold font-monospace">{{ res.approval_score|round(0, 'floor')|int }}%</h4>
+                </div>
+                <div class="col-6">
+                    <span class="text-secondary small">Risk Level:</span>
+                    <h4 class="font-monospace fw-bold {% if res.risk_level == 'Low Risk' %}text-success{% elif res.risk_level == 'Medium Risk' %}text-warning{% else %}text-danger{% endif %}">
+                        {{ res.risk_level }}
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card mb-4 text-start">
+            <h5 class="fw-bold text-white mb-3"><i class="fa-solid fa-user text-info me-2"></i>Applicant Details</h5>
+            <div class="row g-3 small">
+                <div class="col-md-4"><span class="text-secondary">Name:</span> <span class="text-white">{{ res.applicant_name }}</span></div>
+                <div class="col-md-4"><span class="text-secondary">Age:</span> <span class="text-white">{{ res.age }}</span></div>
+                <div class="col-md-4"><span class="text-secondary">Property Area:</span> <span class="text-white">{{ res.property_area }}</span></div>
+                <div class="col-md-4"><span class="text-secondary">Monthly Income:</span> <span class="text-white">{{ res.income|inr2 }}</span></div>
+                <div class="col-md-4"><span class="text-secondary">Co-Applicant Income:</span> <span class="text-white">{{ res.co_income|inr2 }}</span></div>
+                <div class="col-md-4"><span class="text-secondary">Credit History:</span> <span class="text-white">{{ 'Clear Record' if res.credit_hist == 1.0 else 'Prior Default' }}</span></div>
+            </div>
+        </div>
+
+        <div class="glass-card text-start">
+            <h5 class="fw-bold text-white mb-3"><i class="fa-solid fa-calculator text-info me-2"></i>EMI Summary</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <div class="p-3 bg-dark bg-opacity-30 rounded-4 border border-secondary border-opacity-10">
+                        <div class="text-muted small mb-1">Loan Amount</div>
+                        <div class="fw-bold text-white">{{ res.loan_amt|inr }}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 bg-dark bg-opacity-30 rounded-4 border border-secondary border-opacity-10">
+                        <div class="text-muted small mb-1">Interest Rate</div>
+                        <div class="fw-bold text-white">{{ "%.2f"|format(res.interest_rate) }}% p.a.</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 bg-dark bg-opacity-30 rounded-4 border border-secondary border-opacity-10">
+                        <div class="text-muted small mb-1">Loan Duration</div>
+                        <div class="fw-bold text-white">{{ res.term|int }} Months</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 bg-dark bg-opacity-30 rounded-4 border border-secondary border-opacity-10 mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted small">Monthly EMI:</span>
+                    <span class="text-info font-monospace fw-bold fs-5">{{ res.emi|inr2 }}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted small">Total Interest Payable:</span>
+                    <span class="text-warning font-monospace">{{ res.total_interest|inr2 }}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted small">Total Amount Payable:</span>
+                    <span class="text-white font-monospace fw-bold">{{ res.total_payment|inr2 }}</span>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3">
+                <a href="{{ url_for('download_pdf', id=res.id) }}" class="btn btn-premium flex-grow-1 py-2">
+                    <i class="fa-solid fa-file-pdf me-1"></i> Download PDF Report
+                </a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary text-white border-secondary px-4 py-2">
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

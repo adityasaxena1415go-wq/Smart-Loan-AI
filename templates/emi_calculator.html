@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="glass-card">
+            <div class="text-center mb-4">
+                <h3 class="fw-bold text-white mb-1"><i class="fa-solid fa-calculator text-info me-2"></i>EMI Calculator</h3>
+                <p class="text-secondary small">Enter your own loan amount, interest rate, and duration to see the exact monthly installment.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">Loan Amount (₹)</label>
+                        <input type="number" min="1" step="1" id="calcAmount" class="form-control" value="500000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">Interest Rate (% per annum)</label>
+                        <input type="number" min="0" max="50" step="0.01" id="calcRate" class="form-control" value="8.5">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">Loan Duration</label>
+                        <select id="calcTerm" class="form-select">
+                            {% for m in valid_terms %}
+                                <option value="{{ m }}" {% if m == 60 %}selected{% endif %}>
+                                    {{ m }} Months
+                                    {% if m % 12 == 0 %}({{ (m // 12) }} {{ 'Year' if m // 12 == 1 else 'Years' }}){% endif %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6 border-start border-secondary border-opacity-10 ps-md-5">
+                    <div class="text-center p-3 rounded-4 bg-dark bg-opacity-30 border border-secondary border-opacity-10 mb-3">
+                        <div class="text-muted small mb-1">MONTHLY EMI</div>
+                        <div class="display-6 fw-extrabold text-white" id="calcEmi">₹0</div>
+                    </div>
+                    <div class="p-3 bg-dark bg-opacity-30 rounded-4 border border-secondary border-opacity-10">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted small">Loan Amount</span>
+                            <span class="text-white font-monospace" id="calcOutAmount">₹0</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted small">Total Interest Payable</span>
+                            <span class="text-warning font-monospace" id="calcOutInterest">₹0</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted small">Total Amount Payable</span>
+                            <span class="text-info font-monospace fw-bold" id="calcOutTotal">₹0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const amountInput = document.getElementById('calcAmount');
+    const rateInput = document.getElementById('calcRate');
+    const termSelect = document.getElementById('calcTerm');
+    const emiOut = document.getElementById('calcEmi');
+    const amountOut = document.getElementById('calcOutAmount');
+    const interestOut = document.getElementById('calcOutInterest');
+    const totalOut = document.getElementById('calcOutTotal');
+
+    function formatINR(num, decimals) {
+        if (isNaN(num) || !isFinite(num)) num = 0;
+        return '₹' + num.toLocaleString('en-IN', {
+            maximumFractionDigits: decimals,
+            minimumFractionDigits: decimals
+        });
+    }
+
+    function calculate() {
+        const principal = Math.max(0, parseFloat(amountInput.value) || 0);
+        const annualRate = Math.max(0, parseFloat(rateInput.value) || 0);
+        const months = parseInt(termSelect.value) || 0;
+
+        let emi = 0;
+        if (months > 0) {
+            if (annualRate === 0) {
+                emi = principal / months;
+            } else {
+                const r = (annualRate / 12) / 100;
+                emi = (principal * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
+            }
+        }
+        if (isNaN(emi) || !isFinite(emi)) emi = 0;
+
+        const totalPayment = emi * months;
+        const totalInterest = totalPayment - principal;
+
+        emiOut.textContent = formatINR(emi, 2);
+        amountOut.textContent = formatINR(principal, 0);
+        interestOut.textContent = formatINR(totalInterest, 2);
+        totalOut.textContent = formatINR(totalPayment, 2);
+    }
+
+    [amountInput, rateInput, termSelect].forEach(el => el.addEventListener('input', calculate));
+    calculate();
+});
+</script>
+{% endblock %}

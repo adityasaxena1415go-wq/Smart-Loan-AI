@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row align-items-center justify-content-between py-5 my-4">
+    <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="badge rounded-pill bg-dark text-info border border-info border-opacity-25 px-3 py-2 mb-3 tracking-wide">
+            <i class="fa-solid fa-sparkles me-2"></i>NEXT-GENERATION CREDIT RISK ASSESSMENTS
+        </div>
+        <h1 class="display-4 fw-extrabold text-white mb-3" style="letter-spacing: -1px; line-height: 1.2;">
+            AI-Powered Lending <br>
+            <span style="background: var(--accent-glow); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Decisions in Seconds.</span>
+        </h1>
+        <p class="text-secondary fs-5 mb-4" style="font-weight: 400; max-width: 540px;">
+            Transform raw financial profiles into accurate risk matrix scorecards using our advanced Random Forest pipeline. Premium evaluation without the institutional wait time.
+        </p>
+        <div class="d-flex gap-3">
+            <a href="{{ url_for('register') }}" class="btn btn-premium px-4 py-3 fs-6">
+                Initialize Application <i class="fa-solid fa-arrow-right ms-2"></i>
+            </a>
+            <a href="#calculator" class="btn btn-outline-secondary text-white border-secondary px-4 py-3 fs-6">
+                Simulate EMI
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="glass-card position-relative overflow-hidden" style="border-radius: 24px; background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <span class="text-secondary small font-monospace"><i class="fa-solid fa-circle text-success me-2"></i>Core AI Engine Active</span>
+                <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-10 font-monospace">v2.4.0</span>
+            </div>
+            <div class="p-3 bg-dark bg-opacity-40 rounded-4 border border-secondary border-opacity-10 mb-3">
+                <div class="text-muted small mb-1">DATA PROCESSING POOL</div>
+                <div class="h4 fw-bold text-white font-monospace">10,500+ Deep Records</div>
+            </div>
+            <div class="p-3 bg-dark bg-opacity-40 rounded-4 border border-secondary border-opacity-10 mb-3">
+                <div class="text-muted small mb-1">PIPELINE CORE ARCHITECTURE</div>
+                <div class="h4 fw-bold text-white font-monospace">Random Forest Ensemble</div>
+            </div>
+            <div class="p-3 bg-dark bg-opacity-40 rounded-4 border border-secondary border-opacity-10">
+                <div class="text-muted small mb-1">TARGET CLASSIFICATION SYSTEM</div>
+                <div class="h4 fw-bold text-info font-monospace">Binary Solvability Matrix</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="border-secondary opacity-10 my-5">
+
+<div class="py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-white mb-2">Engineered to Enterprise Standards</h2>
+        <p class="text-secondary mx-auto" style="max-width: 580px;">Bypassing outdated legacy scoring models for instant data-driven automated loan validations.</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="glass-card h-100 p-4">
+                <div class="fs-2 text-info mb-3"><i class="fa-solid fa-bolt-lightning"></i></div>
+                <h4 class="fw-bold text-white mb-2">Instant Validation</h4>
+                <p class="text-secondary small mb-0">Processes complex interconnected factors including Debt-to-Income and credit history in under 200 milliseconds.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-card h-100 p-4">
+                <div class="fs-2 text-success mb-3"><i class="fa-solid fa-chart-pie"></i></div>
+                <h4 class="fw-bold text-white mb-2">Granular Risk Breakdown</h4>
+                <p class="text-secondary small mb-0">Provides comprehensive visibility through risk tier categorization, calculated scores, and real-time confidence tracking.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-card h-100 p-4">
+                <div class="fs-2 text-warning mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                <h4 class="fw-bold text-white mb-2">Cryptographic Hashing</h4>
+                <p class="text-secondary small mb-0">Enforces Scrypt hashing functions alongside strict parameterized ORM operations to maximize absolute data security.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="border-secondary opacity-10 my-5">
+
+<div id="calculator" class="py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="glass-card">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold text-white mb-1"><i class="fa-solid fa-calculator text-info me-2"></i>Simulate Financial Repayments</h3>
+                    <p class="text-secondary small">Enter your own loan amount, interest rate, and duration to preview the monthly EMI (INR).</p>
+                </div>
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label class="form-label text-secondary d-flex justify-content-between">
+                                <span>Principal Loan Amount</span>
+                                <span class="fw-bold text-info" id="amountVal">₹1,50,000</span>
+                            </label>
+                            <input type="range" class="form-range" id="amountRange" min="10000" max="700000" step="5000" value="150000">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label text-secondary d-flex justify-content-between">
+                                <span>Interest Rate (% per annum)</span>
+                                <span class="fw-bold text-info" id="rateVal">8.5%</span>
+                            </label>
+                            <input type="range" class="form-range" id="rateRange" min="0" max="20" step="0.1" value="8.5">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-secondary d-flex justify-content-between">
+                                <span>Repayment Duration</span>
+                                <span class="fw-bold text-info" id="termVal">360 Months (30 Years)</span>
+                            </label>
+                            <input type="range" class="form-range" id="termRange" min="12" max="360" step="12" value="360">
+                        </div>
+                    </div>
+                    <div class="col-md-6 border-start border-secondary border-opacity-10 ps-md-5">
+                        <div class="text-center p-3 rounded-4 bg-dark bg-opacity-30 border border-secondary border-opacity-10">
+                            <div class="text-muted small mb-1">ESTIMATED MONTHLY INSTALLMENT</div>
+                            <div class="display-5 fw-extrabold text-white" id="emiDisplay">₹1,261.41</div>
+                            <div class="text-muted small mt-2" id="breakdownDisplay">Total Interest Liability: ₹3,04,107.13</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const amtRange = document.getElementById('amountRange');
+    const rateRange = document.getElementById('rateRange');
+    const trmRange = document.getElementById('termRange');
+    const amtVal = document.getElementById('amountVal');
+    const rateVal = document.getElementById('rateVal');
+    const trmVal = document.getElementById('termVal');
+    const emiDisplay = document.getElementById('emiDisplay');
+    const breakdownDisplay = document.getElementById('breakdownDisplay');
+
+    function formatIndianCurrency(num) {
+        return '₹' + num.toLocaleString('en-IN', { maximumFractionDigits: 2, minimumFractionDigits: 0 });
+    }
+
+    function calculateLiveEMI() {
+        const principal = parseFloat(amtRange.value);
+        const months = parseInt(trmRange.value);
+        const annualRate = parseFloat(rateRange.value);
+        const monthlyRate = annualRate / 12 / 100;
+
+        amtVal.textContent = formatIndianCurrency(principal);
+        rateVal.textContent = `${annualRate.toFixed(1)}%`;
+        trmVal.textContent = `${months} Months (${(months / 12).toFixed(1)} Years)`;
+
+        let emi;
+        if (annualRate === 0) {
+            emi = principal / months;
+        } else {
+            emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+        }
+        if (isNaN(emi) || !isFinite(emi)) emi = 0;
+
+        const totalRepay = emi * months;
+        const totalInterest = totalRepay - principal;
+
+        emiDisplay.textContent = '₹' + emi.toLocaleString('en-IN', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+        breakdownDisplay.textContent = 'Total Interest Liability: ' + formatIndianCurrency(totalInterest);
+    }
+
+    amtRange.addEventListener('input', calculateLiveEMI);
+    rateRange.addEventListener('input', calculateLiveEMI);
+    trmRange.addEventListener('input', calculateLiveEMI);
+    calculateLiveEMI();
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="fw-bold text-white mb-1"><i class="fa-solid fa-chart-network text-info me-2"></i>Predictive System Analytics</h2>
+        <p class="text-secondary small">Real-time aggregate data visualization of processed portfolio risk segments and approval ratios.</p>
+    </div>
+</div>
+
+{% if total > 0 %}
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="glass-card text-center h-100">
+            <h5 class="fw-bold text-white mb-4"><i class="fa-solid fa-pie-chart text-success me-2"></i>Approval vs Rejection Allocation</h5>
+            <div class="chart-container position-relative mx-auto" style="height:300px; width:300px;">
+                <canvas id="approvalPieChart"></canvas>
+            </div>
+            <p class="text-muted small mt-4 mb-0">Visual ratio dividing accepted credit profiles from high-risk rejections.</p>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="glass-card d-flex flex-column justify-content-between h-100">
+            <div>
+                <h5 class="fw-bold text-white mb-4"><i class="fa-solid fa-microchip-ai text-warning me-2"></i>Performance Index Metrics</h5>
+                <hr class="border-secondary opacity-10 my-3">
+                
+                <div class="d-flex justify-content-between align-items-center py-2.5">
+                    <span class="text-secondary small">Total Run Arrays</span>
+                    <span class="badge bg-dark border border-secondary border-opacity-20 font-monospace text-white px-3 py-1.5 fs-6">{{ total }}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2.5">
+                    <span class="text-secondary small">Approved Portfolios</span>
+                    <span class="badge bg-success bg-opacity-10 text-success font-monospace px-3 py-1.5 fs-6">{{ app_count }}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2.5">
+                    <span class="text-secondary small">Rejected Risk Factors</span>
+                    <span class="badge bg-danger bg-opacity-10 text-danger font-monospace px-3 py-1.5 fs-6">{{ rej_count }}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2.5">
+                    <span class="text-secondary small">Average Loan Amount</span>
+                    <span class="badge bg-info bg-opacity-10 text-info font-monospace px-3 py-1.5 fs-6">{{ avg_loan_amt|inr }}</span>
+                </div>
+            </div>
+
+            <div class="p-3 bg-dark bg-opacity-40 rounded-4 border border-secondary border-opacity-10 mt-4">
+                <div class="d-flex gap-2 align-items-start">
+                    <i class="fa-solid fa-shield-exclamation text-info mt-1"></i>
+                    <p class="text-secondary small mb-0 font-monospace" style="font-size: 0.8rem; line-height: 1.4;">
+                        Data stream synchronized with active SQLite instance tables. Charts will automatically adjust upon new applicant evaluation queries.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const ctxPie = document.getElementById('approvalPieChart').getContext('2d');
+    
+    new Chart(ctxPie, {
+        type: 'doughnut',
+        data: {
+            labels: ['Approved Requests', 'Rejected Risk Tiers'],
+            datasets: [{
+                data: [{{ app_count }}, {{ rej_count }}],
+                backgroundColor: ['#00ff87', '#ff0055'],
+                borderWidth: 1,
+                borderColor: 'rgba(255, 255, 255, 0.05)',
+                hoverOffset: 12
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#8a8f9f',
+                        font: { family: 'Inter', size: 12, weight: 500 },
+                        padding: 20
+                    }
+                }
+            },
+            cutout: '70%'
+        }
+    });
+});
+</script>
+
+{% else %}
+<div class="row">
+    <div class="col-12">
+        <div class="glass-card text-center py-5">
+            <i class="fa-solid fa-chart-radar display-4 text-muted mb-3"></i>
+            <h4 class="text-white fw-bold">No Analytical Pools Available</h4>
+            <p class="text-secondary small">You must log at least one loan prediction array before data graphs can render metrics.</p>
+            <a href="{{ url_for('predict') }}" class="btn btn-premium btn-sm mt-3 px-4 py-2">Initialize Model Matrix</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

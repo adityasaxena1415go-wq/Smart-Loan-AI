@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-6">
+        <div class="glass-card">
+            <div class="text-center mb-4">
+                <h3 class="fw-bold text-white mb-1">Create Corporate Account</h3>
+                <p class="text-secondary small">Register your terminal to deploy AI scoring arrays</p>
+            </div>
+            
+            <form action="{{ url_for('register') }}" method="POST">
+                <div class="mb-3">
+                    <label class="form-label text-secondary small">Full Legal Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-secondary border-opacity-20 text-secondary">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" name="name" placeholder="John Doe" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-secondary small">Corporate Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-secondary border-opacity-20 text-secondary">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                        <input type="email" class="form-control" name="email" placeholder="name@company.com" required>
+                    </div>
+                </div>
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary small">Choose Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="••••••••" minlength="6" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary small">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirm_password" placeholder="••••••••" minlength="6" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-premium w-100 py-2.5">
+                    Register Account <i class="fa-solid fa-user-plus ms-1"></i>
+                </button>
+            </form>
+
+            <div class="text-center mt-4 border-top border-secondary border-opacity-10 pt-3">
+                <p class="text-secondary small mb-0">Already registered? <a href="{{ url_for('login') }}" class="text-info text-decoration-none fw-medium">Sign In Instead</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

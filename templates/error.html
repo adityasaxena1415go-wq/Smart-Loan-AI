@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 55vh;">
+    <div class="col-md-6 text-center">
+        <div class="glass-card py-5">
+            <div class="display-1 fw-bold text-info mb-2">{{ code }}</div>
+            <h3 class="fw-bold text-white mb-2">
+                {% if code == 404 %}Page Not Found{% else %}Something Went Wrong{% endif %}
+            </h3>
+            <p class="text-secondary mb-4">{{ message }}</p>
+            <a href="{{ url_for('index') }}" class="btn btn-premium px-4 py-2">
+                <i class="fa-solid fa-house me-1"></i> Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
