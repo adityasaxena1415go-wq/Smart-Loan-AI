@@ -1,0 +1,211 @@
+/* static/css/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #09090e 0%, #030307 100%);
+    --accent-glow: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-border: rgba(255, 255, 255, 0.06);
+    --text-primary: #f1f3f9;
+    --text-secondary: #8a8f9f;
+    --success-neon: #00ff87;
+    --danger-neon: #ff0055;
+    --warning-neon: #f7b731;
+    --glass-blur: blur(20px);
+}
+
+body {
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Floating Particles Background */
+.bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(79, 172, 254, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    animation: float-around 25s infinite linear;
+}
+
+@keyframes float-around {
+    0% { transform: translateY(0) translateX(0) scale(1); }
+    50% { transform: translateY(-80px) translateX(40px) scale(1.1); }
+    100% { transform: translateY(0) translateX(0) scale(1); }
+}
+
+/* Premium Glassmorphism Cards */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card:hover {
+    border-color: rgba(79, 172, 254, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 40px 80px rgba(79, 172, 254, 0.08);
+}
+
+/* Premium Inputs */
+.form-control, .form-select {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-primary) !important;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: #4facfe !important;
+    box-shadow: 0 0 15px rgba(79, 172, 254, 0.25) !important;
+    outline: none;
+}
+
+/* Premium Buttons */
+.btn-premium {
+    background: var(--accent-glow);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.8rem 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+}
+
+.btn-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.5);
+    color: #ffffff;
+}
+
+/* Navigation Link Effects */
+.nav-link {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #00f2fe !important;
+}
+
+/* Modern Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #030307;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(79, 172, 254, 0.4);
+}
+
+/* Dynamic Risk UI Components */
+.risk-indicator {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+.risk-low { width: 30%; background: var(--success-neon); }
+.risk-medium { width: 65%; background: var(--warning-neon); }
+.risk-high { width: 100%; background: var(--danger-neon); }   
+
+/* ===========================
+   SMARTLOAN AI DARK THEME FIX
+=========================== */
+
+.text-muted{
+    color:#cbd5e1 !important;
+}
+
+.table{
+    color:#ffffff !important;
+}
+
+.table thead th{
+    color:#9bdcff !important;
+    font-weight:600;
+}
+
+.table tbody td{
+    color:#f8fafc !important;
+}
+
+.display-6{
+    color:#ffffff !important;
+}
+
+.small{
+    color:#cbd5e1;
+}
+
+.badge{
+    font-weight:600;
+}
+
+.glass-card h1,
+.glass-card h2,
+.glass-card h3,
+.glass-card h4,
+.glass-card h5,
+.glass-card h6,
+.glass-card p,
+.glass-card span,
+.glass-card label{
+    color:#ffffff;
+}
+
+.text-secondary{
+    color:#b8c5d6 !important;
+}
+
+.btn-outline-info{
+    color:#7dd3fc !important;
+    border-color:#38bdf8 !important;
+}
+
+.btn-outline-info:hover{
+    background:#38bdf8 !important;
+    color:#000 !important;
+}
+
+.btn-outline-danger:hover{
+    color:#fff !important;
+}
+
+.progress{
+    background:rgba(255,255,255,.08);
+}
+
+.progress-bar{
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+}   
